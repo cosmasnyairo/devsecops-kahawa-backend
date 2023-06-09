@@ -12,18 +12,26 @@ try {
         }
         stage('SonarQube code analysis') {
           withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-              try {
-                  sh 'mvn sonar:sonar -Dsonar.projectKey=devsecops-kahawa-backend -Dsonar.organization=kahawa'
-              }
-              catch (Error | Exception e) {
-                  echo 'Sonarqube failed'
-              }
-          }
-            
+              sh 'mvn sonar:sonar -Dsonar.projectKey=devsecops-kahawa-backend -Dsonar.organization=kahawa'
+          } 
         }
 
+        stage('SonarQube Quality Gate') {
+            try {
+                def qualitygate = waitForQualityGate()
+                sleep 10
+                if (qualitygate.status != 'OK' || qualitygate.status != 'SUCCESS') {
+                    sh "echo Pipeline aborted due to quality gate failure on ${env.BRANCH_NAME} branch: ${qualitygate.status}"
+                    waitForQualityGate abortPipeline: true
+                }
+            } catch (Error|Exception e){
+                echo "failed but we continue"
+            }
+        }
+
+
         stage('Build Docker Image') {
-            app = docker.build("${env.GIT_REPO_NAME}")
+           docker build --network=host -t "${env.GIT_REPO_NAME} ."
         }
 
         stage('Push Image to Registry') {
