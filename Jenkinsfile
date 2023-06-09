@@ -23,6 +23,7 @@ try {
 
         stage('Trivy Image scan') {
           sh "trivy image -o trivy-image-results.json devsecops-kahawa-backend:latest"
+          archiveArtifacts artifacts: 'trivy-image-results.json', fingerprint: true
         }
 
         stage('Push Image to Registry') {
@@ -36,8 +37,7 @@ try {
     //Finish failing the build after telling someone about it
     throw e
 } finally {
-        archiveArtifacts artifacts: 'trivy-image-results.json', fingerprint: true
-        junit 'build/reports/**/*.xml'
+       
   // Post build steps here
   /* Success or failure, always run post build steps */
 // send email
