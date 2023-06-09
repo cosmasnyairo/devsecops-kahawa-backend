@@ -18,7 +18,7 @@ try {
         }
 
         stage('Trivy Repo scan') {
-          sh "trivy repo -f json -o trivy-repo-results.json https://github.com/cosmasnyairo/devsecops-kahawa-backend"
+          sh "trivy repo https://github.com/cosmasnyairo/devsecops-kahawa-backend"
         }
         stage('Build Docker Image') {
            sh "docker build --network=host -t devsecops-kahawa-backend ."
