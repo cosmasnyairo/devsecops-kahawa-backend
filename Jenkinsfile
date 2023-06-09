@@ -31,7 +31,7 @@ try {
 
 
         stage('Build Docker Image') {
-           docker build --network=host -t "${env.GIT_REPO_NAME} ."
+           sh "docker build --network=host -t "${env.GIT_REPO_NAME} .""
         }
 
         stage('Push Image to Registry') {
