@@ -8,7 +8,7 @@ try {
             env.GIT_REPO_NAME = scmVars.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
         }
         stage('Run Java Unit Tests') {
-            sh 'mvn -DskipTests clean install'
+            sh 'mvn clean install'
         }
         stage('SonarQube code analysis') {
           withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
