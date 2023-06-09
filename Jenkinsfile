@@ -7,7 +7,7 @@ try {
             env.SHORT_COMMIT = "${scmVars.GIT_COMMIT[0..7]}"
             env.GIT_REPO_NAME = scmVars.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
         }
-        stage('Run Java Unit Tests') {
+        stage('Run Unit Tests') {
             sh 'mvn clean install'
         }
 
@@ -17,13 +17,15 @@ try {
           } 
         }
 
-
+        stage('Trivy Repo scan') {
+          sh "trivy repo -f json -o trivy-repo-results.json https://github.com/cosmasnyairo/devsecops-kahawa-backend"
+        }
         stage('Build Docker Image') {
            sh "docker build --network=host -t devsecops-kahawa-backend ."
         }
 
         stage('Trivy Image scan') {
-          sh "trivy image -f json -o trivyresults.json devsecops-kahawa-backend:latest"
+          sh "trivy image -f json -o trivy-image-results.json devsecops-kahawa-backend:latest"
         }
 
         stage('Push Image to Registry') {
