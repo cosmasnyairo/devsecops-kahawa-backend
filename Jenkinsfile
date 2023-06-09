@@ -16,10 +16,7 @@ try {
               sh 'mvn sonar:sonar -Dsonar.projectKey=devsecops-kahawa-backend -Dsonar.organization=kahawa'
           } 
         }
-
-        stage('Trivy Repo scan') {
-          sh "trivy repo https://github.com/cosmasnyairo/devsecops-kahawa-backend"
-        }
+        
         stage('Build Docker Image') {
            sh "docker build --network=host -t devsecops-kahawa-backend ."
         }
