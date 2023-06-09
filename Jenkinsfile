@@ -12,9 +12,7 @@ try {
         }
         stage('SonarQube code analysis') {
             try {
-                withSonarQubeEnv('SonarQube') {
-                  sh 'mvn sonar:sonar'
-                }
+                sh 'mvn sonar:sonar'
             }
             catch (Error | Exception e) {
                 echo 'Sonarqube failed'
