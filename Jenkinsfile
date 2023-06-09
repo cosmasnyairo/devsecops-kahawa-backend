@@ -13,7 +13,7 @@ try {
         stage('SonarQube code analysis') {
           withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
               try {
-                  sh 'mvn sonar:sonar'
+                  sh 'mvn sonar:sonar -Dsonar.projectKey=devsecops-kahawa-backend -Dsonar.organization=kahawa'
               }
               catch (Error | Exception e) {
                   echo 'Sonarqube failed'
@@ -23,9 +23,7 @@ try {
         }
 
         stage('Build Docker Image') {
-            docker.withRegistry('https://937762161455.dkr.ecr.eu-west-1.amazonaws.com/', 'ecr:eu-west-1:awsecr-uat') {
-                app = docker.build("${env.GIT_REPO_NAME}")
-            }
+            app = docker.build("${env.GIT_REPO_NAME}")
         }
 
         stage('Push Image to Registry') {
