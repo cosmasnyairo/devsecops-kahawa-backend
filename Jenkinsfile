@@ -11,7 +11,7 @@ try {
             sh 'mvn -DskipTests clean install'
         }
         stage('SonarQube code analysis') {
-          withCredentials([usernamePassword(credentialsId: 'SONAR_TOKEN', usernameVariable: 'SONAR_TOKEN', passwordVariable: 'SONAR_TOKEN')]) {
+          withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
               try {
                   sh 'mvn sonar:sonar'
               }
