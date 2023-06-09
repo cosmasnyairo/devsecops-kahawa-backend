@@ -23,15 +23,14 @@ try {
         }
 
         stage('Trivy Image scan') {
-          sh "trivy image devsecops-kahawa-backend"
+          sh "trivy image devsecops-kahawa-backend:latest"
         }
 
         stage('Push Image to Registry') {
                 retry(3) {
                     docker.withRegistry('https://937762161455.dkr.ecr.eu-west-1.amazonaws.com/', 'ecr:eu-west-1:awsecr-uat') {
-                        app.push("uat-${env.SHORT_COMMIT}")
-                        app.push('latest')
-                    }
+                       sh "docker tag devsecops-kahawa-backend 559104660845.dkr.ecr.eu-west-1.amazonaws.com/devsecops-kahawa-backend:uat-${env.SHORT_COMMIT}"
+                        sh "docker push 559104660845.dkr.ecr.eu-west-1.amazonaws.com/sme-portal-web-dev:dev-${env.SHORT_COMMIT}-${env.BUILDVERSION}"
                 }
         }
   }
