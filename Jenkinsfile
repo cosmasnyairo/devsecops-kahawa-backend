@@ -16,13 +16,13 @@ try {
               sh 'mvn sonar:sonar -Dsonar.projectKey=devsecops-kahawa-backend -Dsonar.organization=kahawa'
           } 
         }
-
+        
         stage('Build Docker Image') {
            sh "docker build --network=host -t devsecops-kahawa-backend ."
         }
 
         stage('Trivy Image scan') {
-          sh "trivy image -o trivy-image-results.json devsecops-kahawa-backend:latest"
+          sh "trivy image -f json devsecops-kahawa-backend:latest"
         }
 
         stage('Push Image to Registry') {
