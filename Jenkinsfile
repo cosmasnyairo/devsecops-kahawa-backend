@@ -11,12 +11,15 @@ try {
             sh 'mvn -DskipTests clean install'
         }
         stage('SonarQube code analysis') {
-            try {
-                sh 'mvn sonar:sonar'
-            }
-            catch (Error | Exception e) {
-                echo 'Sonarqube failed'
-            }
+          withCredentials([usernamePassword(credentialsId: 'SONAR_TOKEN', usernameVariable: 'SONAR_TOKEN', passwordVariable: 'SONAR_TOKEN')]) {
+              try {
+                  sh 'mvn sonar:sonar'
+              }
+              catch (Error | Exception e) {
+                  echo 'Sonarqube failed'
+              }
+          }
+            
         }
 
         stage('Build Docker Image') {
