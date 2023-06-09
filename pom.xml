@@ -9,13 +9,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>co.ke.collengine</groupId>
-    <artifactId>devops-kahawa</artifactId>
+    <artifactId>devsecops-kahawa-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>devops-kahawa</name>
-    <description>devops-kahawa</description>
+    <name>devsecops-kahawa-backend</name>
+    <description>devsecops-kahawa-backend</description>
     <properties>
         <java.version>11</java.version>
-        <sonar.organization>devops-kahawa</sonar.organization>
+        <sonar.organization>devsecops-kahawa-backend</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <dependencies>
