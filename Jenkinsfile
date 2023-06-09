@@ -23,7 +23,7 @@ try {
         }
 
         stage('Trivy Image scan') {
-          sh "trivy image devsecops-kahawa-backend:latest"
+          sh "trivy image -f json -o trivyresults.json devsecops-kahawa-backend:latest"
         }
 
         stage('Push Image to Registry') {
