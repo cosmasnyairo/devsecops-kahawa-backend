@@ -10,7 +10,7 @@ try {
         stage('Run Java Unit Tests') {
             sh 'mvn clean install'
         }
-        
+
         stage('SonarQube code analysis') {
           withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
               sh 'mvn sonar:sonar -Dsonar.projectKey=devsecops-kahawa-backend -Dsonar.organization=kahawa'
@@ -19,7 +19,7 @@ try {
 
 
         stage('Build Docker Image') {
-           sh "docker build --network=host -t "${env.GIT_REPO_NAME}" ."
+           sh "docker build --network=host -t devsecops-kahawa-backend ."
         }
 
         stage('Push Image to Registry') {
