@@ -21,6 +21,9 @@ try {
         stage('Build Docker Image') {
            sh "docker build --network=host -t devsecops-kahawa-backend ."
         }
+        stage('Trivy Image scan') {
+           sh "trivy image devsecops-kahawa-backend "
+        }
 
         stage('Push Image to Registry') {
                 retry(3) {

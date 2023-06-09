@@ -2,7 +2,7 @@
 FROM adoptopenjdk/openjdk11:alpine-jre
 
 # Refer to Maven build -> final name extra
-ARG JAR_FILE=target/spring-boot-api-example-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/devsecops-kahawa-backend-0.0.1-SNAPSHOT.jar
 
 # cd /opt/app
 WORKDIR /opt/app
