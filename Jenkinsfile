@@ -27,10 +27,9 @@ try {
         }
 
         stage('Push Image to Registry') {
-                retry(3) {
-                    docker.withRegistry('https://937762161455.dkr.ecr.eu-west-1.amazonaws.com/', 'ecr:eu-west-1:awsecr-uat') {
-                       sh "docker tag devsecops-kahawa-backend 559104660845.dkr.ecr.eu-west-1.amazonaws.com/devsecops-kahawa-backend:uat-${env.SHORT_COMMIT}"
-                        sh "docker push 559104660845.dkr.ecr.eu-west-1.amazonaws.com/sme-portal-web-dev:dev-${env.SHORT_COMMIT}-${env.BUILDVERSION}"
+                docker.withRegistry('https://937762161455.dkr.ecr.eu-west-1.amazonaws.com/', 'ecr:eu-west-1:awsecr-uat') {
+                       sh "docker tag devsecops-kahawa-backend 937762161455.dkr.ecr.eu-west-1.amazonaws.com/devsecops-kahawa-backend:uat-${env.SHORT_COMMIT}"
+                       sh "docker push937762161455.dkr.ecr.eu-west-1.amazonaws.com/devsecops-kahawa-backend:uat-${env.SHORT_COMMIT}"
                 }
         }
   }
