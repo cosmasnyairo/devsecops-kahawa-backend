@@ -32,20 +32,15 @@ try {
                 app = docker.build("${env.GIT_REPO_NAME}")
             }
         }
-    /* Finally, we'll push the image:
-     * We tag the image with the incremental build number from Jenkins
-     * Pushing multiple tags is cheap, as all the layers are reused.*/
-        if (env.BRANCH_NAME == 'develop') {
-            stage('Push Image to Registry') {
+
+        stage('Push Image to Registry') {
                 retry(3) {
                     docker.withRegistry('https://937762161455.dkr.ecr.eu-west-1.amazonaws.com/', 'ecr:eu-west-1:awsecr-uat') {
                         app.push("uat-${env.SHORT_COMMIT}")
                         app.push('latest')
                     }
                 }
-            }
         }
-    }
 } catch (Error | Exception e) {
     //Finish failing the build after telling someone about it
     throw e
