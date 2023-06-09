@@ -15,7 +15,7 @@
     <description>spring-boot-api-example</description>
     <properties>
         <java.version>11</java.version>
-        <sonar.organization>devops-wit</sonar.organization>
+        <sonar.organization>devops-kahawa</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <dependencies>
