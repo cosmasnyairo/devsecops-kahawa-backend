@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>co.ke.collengine</groupId>
-    <artifactId>spring-boot-api-example</artifactId>
+    <artifactId>devops-kahawa</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-api-example</name>
-    <description>spring-boot-api-example</description>
+    <name>devops-kahawa</name>
+    <description>devops-kahawa</description>
     <properties>
         <java.version>11</java.version>
         <sonar.organization>devops-kahawa</sonar.organization>
